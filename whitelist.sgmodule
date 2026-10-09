@@ -1,0 +1,13 @@
+#!name=PO0 Dynamic Whitelist
+#!desc=IPv4 dynamic FIFO whitelist (edit URL/token/script-path before use)
+
+[Rule]
+DOMAIN,fw.example.com,DIRECT
+
+[Script]
+po0-dynamic-cron = type=cron,cronexp="*/10 * * * *",script-path=https://fw.example.com/static/whitelist.js,argument="token=CHANGE_ME&url=https%3A%2F%2Ffw.example.com",timeout=30
+po0-dynamic-change = type=event,event-name=network-changed,script-path=https://fw.example.com/static/whitelist.js,argument="token=CHANGE_ME&url=https%3A%2F%2Ffw.example.com",timeout=30
+po0-dynamic-panel = type=generic,script-path=https://fw.example.com/static/whitelist.js,argument="token=CHANGE_ME&url=https%3A%2F%2Ffw.example.com",timeout=30
+
+[Panel]
+po0-dynamic = script-name=po0-dynamic-panel,title=PO0 动态加白,content=点击更新,update-interval=300
